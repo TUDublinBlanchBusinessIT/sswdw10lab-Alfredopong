@@ -1,29 +1,16 @@
 <?php
 include("finalStepHeader.html");
+session_start();
 
-//translate the comments below into PHP code underneath each comment
+echo "First Name: " . $_SESSION['passengerFN'] . "<br>";
+echo "Surname: " . $_SESSION['passengerSN'] . "<br>";
 
-//start a session
-
-//echo the passenger's firstname from the appropriate session variable
-
-echo "<BR>";
-
-//echo the passenger's surname from the appropriate session variable
-
-echo "<BR>";
-
-// if the luggage session variable is on
-
-    //echo the amount of bags under ten kilos the passenger is bringing
-    
-    echo "<BR>";
-    
-    //echo the amount of bags over ten kilos the passenger is bringing
-    
-//end if block
-
+if ($_SESSION['luggage'] == 1) {
+    echo "Bags under 10KG: " . $_SESSION['subTenKG'] . "<br>";
+    echo "Bags between 10KG and 20KG: " . $_SESSION['overTenKG'] . "<br>";
+}
 ?>
+
 </h4></div></div>
 <form method="POST" action="confirm.php">
     <div class="form-group">        
