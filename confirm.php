@@ -1,35 +1,25 @@
 <?php
 session_start();
-if (!isset($_POST['confirm'])) {
-    header("Location: flightBooking.html");
-}
-$fn = $_SESSION['passengerFN'];
-$sn = $_SESSION['passengerSN'];
-if ($_SESSION['luggage']=='1') {
-    $subTenKG = $_SESSION['subTenKG'];
-    $overTenKG = $_SESSION['overTenKG'];
-}
-else {
-    $subTenKG = 0;
-    $overTenKG = 0;
-}
-    
 include("dbcon.php");
-$sql = "insert into flightbooking(firstname,surname,bagsUnderTenKG,bagsOverTenKG) values ";
 
-$sql .= "('$fn','$sn','1','1')";
+if (isset($_POST['confirm'])) {
 
-//echo $sql;
+    $firstname = $_SESSION['passengerFN'];
+    $surname = $_SESSION['passengerSN'];
 
+    // luggage bag counts
+    $underTen = isset($_SESSION['subTenKG']) ? $_SESSION['subTenKG'] : 0;
+    $overTen = isset($_SESSION['overTenKG']) ? $_SESSION['overTenKG'] : 0;
 
-if (mysqli_query($conn, $sql)) {
-  echo "Your flight booking was created successfully";
+    $sql = "INSERT INTO flightbooking (firstname, surname, bagsUnderTenKG, bagsOverTenKG)
+            VALUES ('$firstname', '$surname', $underTen, $overTen)";
+
+    mysqli_query($conn, $sql);
+
+    echo "<h2>Booking Saved!</h2>";
+    echo "<p>Your booking was successfully inserted.</p>";
+
 } else {
-  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "<h3>You must confirm before continuing.</h3>";
 }
-
-mysqli_close($conn);
-
-session_destroy();
-
 ?>

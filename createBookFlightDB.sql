@@ -1,6 +1,7 @@
 drop database if exists bookflight;
 create database bookflight;
 use bookflight;
+
 create table flightbooking (
     id int auto_increment,
     firstname varchar(30),
